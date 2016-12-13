@@ -1,11 +1,5 @@
-import { formatName } from './helpers/format-user';
+import Actions from './reducer-actions/change_person_actions';
 
 export default function changePerson (state = "Matthew", action) {
-  if (!action) return state
-  switch (action.type) {
-    case 'PERSON_CHANGED':
-      return formatName(action.person)
-    default:
-      return state
-  }
+  return action ? Actions(action, state) : state;
 }

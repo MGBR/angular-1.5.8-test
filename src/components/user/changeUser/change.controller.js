@@ -1,21 +1,29 @@
-class ChangeUserController {
-  constructor () {}
+import PersonActions from '../../../actions/change_person'
 
-  $onChanges (changes) {
-    if(changes.user) {
-      this.user = angular.copy(changes.user.currentValue);
-      this.newUser = angular.copy(changes.user.currentValue);
+class ChangeUserController {
+  constructor ($ngRedux) {
+    this.unsubscribe = $ngRedux.connect(this.mapToState, PersonActions)(this)
+    this.newPerson = ""
+  }
+
+  $onDestroy () {
+    this.unsubscribe()
+  }
+
+  mapToState (state) {
+    return {
+      person: state.person
     }
   }
 
-  saveChange () {
+  updatePerson (newPerson) {
+    this.changePerson(newPerson);
     this.onUpdate({
       $event: {
-        user: this.newUser
+        updated: true
       }
-    });
+    })
   }
-  
 }
 
 export default ChangeUserController;

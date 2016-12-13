@@ -18,6 +18,9 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-ui-router": "^1.0.0-beta.2",
-    "bootstrap": "^3.3.7"
+    "babel-preset-es2015-loose": "^8.0.0",
+    "bootstrap": "^3.3.7",
+    "ng-redux": "^3.4.0-beta.1",
+    "ramda": "^0.22.1"
   }
 }

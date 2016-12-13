@@ -1,24 +1,25 @@
 class UserController {
-  constructor (UserService, UserHelper) {
-    this.UserService = UserService;
-    this.UserHelper = UserHelper;
+  constructor ($ngRedux) {
+    this.unsubscribe = $ngRedux.connect(this.mapToState)(this)
     this.isUpdating = false;
-    this.user = null;
   }
 
-  $onInit () {
-    let user = this.UserService.getUser();
-    this.user = this.UserHelper.formatUserName(user);
+  $onDestroy () {
+    this.unsubscribe()
   }
 
-  beginNameChange () {
-    this.isUpdating = true;
+  mapToState (state) {
+    return {
+      person: state.person
+    }
   }
 
-  changeName (event) {
-    let newUser = this.UserService.changeUser(event.user);
-    this.user = this.UserHelper.formatUserName(newUser);
-    this.isUpdating = false;
+  toggleUpdating () {
+    this.isUpdating = !this.isUpdating;
+  }
+
+  updated (event) {
+    if(event.updated) this.toggleUpdating()
   }
 }
 

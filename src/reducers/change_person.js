@@ -1,5 +1,10 @@
-import Actions from './reducer-actions/change_person_actions';
+import { formatName } from './helpers/format-user';
 
 export default function changePerson (state = "Matthew", action) {
-  return action ? Actions(action, state) : state;
+  const actions = {
+    'PERSON_CHANGED': () => formatName(action.person),
+    'default': () => state
+  };
+
+  return (actions[action.type] || actions.default)();
 }

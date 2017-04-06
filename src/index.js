@@ -6,7 +6,7 @@ import common from './common/common';
 import appComponent from './components/app.component';
 
 const root = angular
-  .module("app", [
+  .module('app', [
     ngRedux,
     common,
     components
